@@ -1,0 +1,4 @@
+name: QuizCupV4
+version: '${project.version}'
+main: de.zblubba.quizcupv4.QuizCupV4
+api-version: '1.20'

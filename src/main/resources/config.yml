@@ -1,0 +1,82 @@
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+prefix: '&eQuizCup &8| &7'
+no_permission: "&cYou don't have enough permission to perform this command!"
+# example when the console tries to perform a command
+must_be_a_player: "&cDu musst ein Spieler sein, um die ausführen zu können!"
+command_does_not_exist: "&cDieser Befehl existiert nicht!"
+# Diese Optionen ändern sich automatisch beim /invis und /closeserver Command und sind für reloads gedacht
+invis_enabled: false
+server_closed: false
+
+chat:
+  close_chat: '{prefix}&cDer Chat ist nun geschlossen!'
+  open_chat: '{prefix}&aDer Chat ist nun wieder geöffnet!'
+  chat_is_closed: '{prefix}&cDer Chat ist derzeit &lgeschlossen'
+
+motd:
+  enabled: true
+  firstLine: '                 &eQu§6iz &eCup &6V2 &8- &7[&a1.8&8-&a1.19&7]'
+  secondLine: '              &cEvent startet am 24.06.2022!'
+
+spawn:
+  world: "world"
+  x: 26.5
+  y: 62
+  z: -23.5
+  yaw: 0
+  pitch: 0
+
+join:
+  message_format: '&7[&a+&7] {player}'
+  personal_message: '&aWillkommen &7auf dem &6Drachenkult QuizCup Server&7! Alle weiteren Informationen findest du auf dem &9Discord\n&7Viel Spaß!'
+  teleport_to_spawn: true
+  playsound: true
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  title_enabled: true
+  title: '&a&lWelcome %player%'
+  subtitle: '&7to &bYour&9Network!'
+
+quit:
+  message_format: '&7[&c-&7] {player}'
+
+prefixes:
+  admin: '&cAdmin &8| &c{player}'
+  helper: '&6Helper &8| &6{player}'
+  player: '&b{player}'
+
+actionbar:
+  enabled: true
+  message: '{prefix} &cstarting soon...'
+
+scoreboard:
+  enabled: true
+  title: '&e&lQuiz&6&lCup'
+  scores:
+    - '&b'
+    - '&3➥ &7Your Name'
+    - '  &8● &9{user}'
+    - '&a'
+    - '&3➥ &7Coded by'
+    - '  &8● &bzBlubba'
+    - '&c'
+    - '&3➥ &7visit my Website'
+    - '  &8● &9https://zBlubba.de'
+    - '&d'
+    - '&3➥ &7set your'
+    - '  &8● &btext here'
+    - '&e'
+    - '&f'
+    - '       &BYour&9Server'
+
+finale_list:
+

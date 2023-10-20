@@ -1,0 +1,14 @@
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+user: 'root'
+password: 'k7hdaG6tQGSVx8'
+database: 'quizcup'
+host: 'jdbc:mysql://localhost/'
