@@ -2,9 +2,7 @@ package de.zblubba.quizcupv4;
 
 import de.zblubba.quizcupv4.commands.FlyCommand;
 import de.zblubba.quizcupv4.commands.InvisCommand;
-import de.zblubba.quizcupv4.listeners.ChatListener;
-import de.zblubba.quizcupv4.listeners.GeneralListeners;
-import de.zblubba.quizcupv4.listeners.MotdListener;
+import de.zblubba.quizcupv4.listeners.*;
 import de.zblubba.quizcupv4.util.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -63,6 +61,8 @@ public final class QuizCupV4 extends JavaPlugin {
         pm.registerEvents(new ChatListener(), this);
         pm.registerEvents(new GeneralListeners(), this);
         pm.registerEvents(new MotdListener(), this);
+        pm.registerEvents(new JoinQuitListener(), this);
+        pm.registerEvents(new InteractionListener(), this);
     }
 
     public void registerCommands() {

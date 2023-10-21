@@ -11,8 +11,7 @@ public class FlyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player) {
-            Player p = ((Player) sender).getPlayer();
+        if(sender instanceof Player p) {
 
             if(args.length == 0) {
                 p.setAllowFlight(!p.getAllowFlight());
