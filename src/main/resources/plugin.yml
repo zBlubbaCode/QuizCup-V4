@@ -2,3 +2,17 @@ name: QuizCupV4
 version: '${project.version}'
 main: de.zblubba.quizcupv4.QuizCupV4
 api-version: '1.20'
+
+commands:
+  fly:
+    permission: quizcup.fly
+    description: Toggles the permission to fly
+  closechat:
+    permission: quizcup.chat.clsoe
+    description: öffnet oder schließt den chat
+  invis:
+    permission: quizcup.visibility
+    description: schaltet die sichtbarkeit von Spielern um
+  stresstest:
+    permission: quizcup.admin
+    description: performs a stresstest for testing the server's performance

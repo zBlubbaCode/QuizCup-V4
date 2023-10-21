@@ -2,6 +2,7 @@ package de.zblubba.quizcupv4;
 
 import de.zblubba.quizcupv4.commands.FlyCommand;
 import de.zblubba.quizcupv4.commands.InvisCommand;
+import de.zblubba.quizcupv4.fragesystem.StressTestCommand;
 import de.zblubba.quizcupv4.listeners.*;
 import de.zblubba.quizcupv4.util.Scoreboard;
 import org.bukkit.Bukkit;
@@ -26,13 +27,13 @@ public final class QuizCupV4 extends JavaPlugin {
     public static ArrayList<String> playerList = new ArrayList<>();
 
 
-    public static File configFile = new File("plugins/QuizCupRemastered", "config.yml");
+    public static File configFile = new File("plugins/QuizCupV4", "config.yml");
     public static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-    public static File frageFile = new File("plugins/QuizCupRemastered", "fragesystem.yml");
+    public static File frageFile = new File("plugins/QuizCupV4", "fragesystem.yml");
     public static FileConfiguration fragen = YamlConfiguration.loadConfiguration(frageFile);
 
-    public static File mysqlFile = new File("plugins/QuizCupRemastered", "mysql.yml");
+    public static File mysqlFile = new File("plugins/QuizCupV4", "mysql.yml");
     public static FileConfiguration mysqlConfig = YamlConfiguration.loadConfiguration(mysqlFile);
 
     @Override
@@ -69,6 +70,7 @@ public final class QuizCupV4 extends JavaPlugin {
         getCommand("fly").setExecutor(new FlyCommand());
         getCommand("closechat").setExecutor(new FlyCommand());
         getCommand("invis").setExecutor(new InvisCommand());
+        getCommand("stresstest").setExecutor(new StressTestCommand());
     }
 
     public static void createFiles() {
