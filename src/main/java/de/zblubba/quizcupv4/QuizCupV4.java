@@ -22,6 +22,8 @@ public final class QuizCupV4 extends JavaPlugin {
     public static QuizCupV4 instance;
 
     // Command / Listener functions
+    public static int actionBarTaskID = 55;
+
     public Scoreboard scoreboard = new de.zblubba.quizcupv4.util.Scoreboard();
 
     public static ArrayList<String> playerList = new ArrayList<>();
