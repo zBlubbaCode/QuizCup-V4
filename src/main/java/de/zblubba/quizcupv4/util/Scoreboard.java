@@ -1,6 +1,7 @@
 package de.zblubba.quizcupv4.util;
 
 import de.zblubba.quizcupv4.QuizCupV4;
+import de.zblubba.quizcupv4.fragesystem.PointsCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -22,8 +23,7 @@ public class Scoreboard {
         obj.setDisplayName(title);
 
         for(int i = 0; i < scores.size(); i++) {
-            //TODO :POINTSCOMMAND HINZUFÜFEN
-            String score = scores.get(scores.size() - i - 1); score = score.replace("&", "§"); score = score.replace("{user}", p.getName()); score = score.replace("{points}", "");
+            String score = scores.get(scores.size() - i - 1); score = score.replace("&", "§"); score = score.replace("{user}", p.getName()); score = score.replace("{points}", "" + PointsCommand.getPoints(Bukkit.getOfflinePlayer(p.getUniqueId())));
             obj.getScore(score).setScore(i);
         }
 

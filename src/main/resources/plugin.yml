@@ -16,3 +16,6 @@ commands:
   stresstest:
     permission: quizcup.admin
     description: performs a stresstest for testing the server's performance
+  points:
+    permission: quizcup.helper
+    description: ändert die punktzahl eines spielers

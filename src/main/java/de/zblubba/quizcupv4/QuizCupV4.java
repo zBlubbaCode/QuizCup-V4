@@ -2,8 +2,11 @@ package de.zblubba.quizcupv4;
 
 import de.zblubba.quizcupv4.commands.FlyCommand;
 import de.zblubba.quizcupv4.commands.InvisCommand;
+import de.zblubba.quizcupv4.fragesystem.PointsCommand;
 import de.zblubba.quizcupv4.fragesystem.StressTestCommand;
+import de.zblubba.quizcupv4.fragesystem.WinnerCommand;
 import de.zblubba.quizcupv4.listeners.*;
+import de.zblubba.quizcupv4.util.MessageCollection;
 import de.zblubba.quizcupv4.util.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -15,6 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class QuizCupV4 extends JavaPlugin {
@@ -38,6 +44,8 @@ public final class QuizCupV4 extends JavaPlugin {
     public static File mysqlFile = new File("plugins/QuizCupV4", "mysql.yml");
     public static FileConfiguration mysqlConfig = YamlConfiguration.loadConfiguration(mysqlFile);
 
+    public static Connection connection;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -51,11 +59,23 @@ public final class QuizCupV4 extends JavaPlugin {
 
         recreatePlayerList();
         checkInvis();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(MessageCollection.getMySQLHost() + MessageCollection.getMySQLDatabase(), MessageCollection.getMySQLUser(), MessageCollection.getMySQLPassword());
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -73,6 +93,8 @@ public final class QuizCupV4 extends JavaPlugin {
         getCommand("closechat").setExecutor(new FlyCommand());
         getCommand("invis").setExecutor(new InvisCommand());
         getCommand("stresstest").setExecutor(new StressTestCommand());
+        getCommand("points").setExecutor(new PointsCommand());
+        getCommand("WinnerCommand").setExecutor(new WinnerCommand());
     }
 
     public static void createFiles() {

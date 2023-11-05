@@ -34,10 +34,9 @@ public class StressTestCommand implements CommandExecutor {
                         Class.forName("com.mysql.cj.jdbc.Driver");
                         Connection connection = DriverManager.getConnection(MessageCollection.getMySQLHost() + MessageCollection.getMySQLDatabase(), MessageCollection.getMySQLUser(), MessageCollection.getMySQLPassword());
 
-                        String query = "update points set points = ? where uuid = ?";
+                        String query = "update points set points = points + 1 where uuid = ?";
                         PreparedStatement statement = connection.prepareStatement(query);
-                        statement.setInt(1, points + 1);
-                        statement.setString(2, target.getUniqueId().toString());
+                        statement.setString(1, target.getUniqueId().toString());
 
                         statement.execute();
                         statement.close();
@@ -48,14 +47,17 @@ public class StressTestCommand implements CommandExecutor {
 
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     Bukkit.getScheduler().cancelTask(taskid);
+                    if(sender instanceof Player p) QuizCupV4.getInstance().scoreboard.setScoreboard(p);
+                    sender.sendMessage(MessageCollection.getPrefix() + "§cStresstest done");
                 }, duration);
-            }
+
+            } else sender.sendMessage(MessageCollection.getPrefix() + "§cAlias: /stresstest <duration s> <intervall ms> <player>");
         }
         return false;
     }
 
     public static int getPoints(OfflinePlayer player) {
-        checkRegistered(player);
+        //checkRegistered(player);
 
         int points = 0;
         try {
@@ -81,44 +83,4 @@ public class StressTestCommand implements CommandExecutor {
         return points;
     }
 
-    public static void checkRegistered(OfflinePlayer p) {
-        boolean registered = false;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(MessageCollection.getMySQLHost() + MessageCollection.getMySQLDatabase(), MessageCollection.getMySQLUser(), MessageCollection.getMySQLPassword());
-
-            Statement statement = connection.createStatement();
-            String query = "select * from points where uuid = \"" + p.getUniqueId() + "\";";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) registered = true;
-
-            resultSet.close();
-            statement.close();
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (!registered) {
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection connection = DriverManager.getConnection(MessageCollection.getMySQLHost() + MessageCollection.getMySQLDatabase(), MessageCollection.getMySQLUser(), MessageCollection.getMySQLPassword());
-
-                String query = "INSERT INTO points(name, uuid, points) VALUES (?, ?, ?);";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1, p.getName());
-                statement.setString(2, p.getUniqueId().toString());
-                statement.setInt(3, 0);
-
-                statement.execute();
-                statement.close();
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

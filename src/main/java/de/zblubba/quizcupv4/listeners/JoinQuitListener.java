@@ -1,6 +1,7 @@
 package de.zblubba.quizcupv4.listeners;
 
 import de.zblubba.quizcupv4.QuizCupV4;
+import de.zblubba.quizcupv4.fragesystem.PointsCommand;
 import de.zblubba.quizcupv4.util.MessageCollection;
 import org.bukkit.*;
 import org.bukkit.configuration.Configuration;
@@ -47,8 +48,9 @@ public class JoinQuitListener implements Listener {
             p.teleport(new Location(Bukkit.getWorld(config.getString("spawn.world")), config.getDouble("spawn.x"), config.getDouble("spawn.y"), config.getDouble("spawn.z"), (float) config.getDouble("spawn.yaw"), (float) config.getDouble("config.pitch")));
         }
 
+        PointsCommand.checkRegistered(p);
+
         QuizCupV4.getInstance().scoreboard.setScoreboard(p);
-        QuizCupV4.getInstance().scoreboard.setTab(p);
 
         for(Player players : Bukkit.getOnlinePlayers()) {
             QuizCupV4.getInstance().scoreboard.updateTab(players);
