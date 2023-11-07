@@ -42,8 +42,6 @@ public class ActionbarCommand implements CommandExecutor {
                         }
                     }, 0, 40);
 
-
-
                     sender.sendMessage(MessageCollection.getPrefix() + "Actionbar erfolgreich gesetzt!");
                 } else sender.sendMessage(MessageCollection.getPrefix() + "§cActionbar ist ausgeschaltet!");
 

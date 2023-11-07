@@ -1,10 +1,7 @@
 package de.zblubba.quizcupv4;
 
-import de.zblubba.quizcupv4.commands.FlyCommand;
-import de.zblubba.quizcupv4.commands.InvisCommand;
-import de.zblubba.quizcupv4.fragesystem.PointsCommand;
-import de.zblubba.quizcupv4.fragesystem.StressTestCommand;
-import de.zblubba.quizcupv4.fragesystem.WinnerCommand;
+import de.zblubba.quizcupv4.commands.*;
+import de.zblubba.quizcupv4.fragesystem.*;
 import de.zblubba.quizcupv4.listeners.*;
 import de.zblubba.quizcupv4.util.MessageCollection;
 import de.zblubba.quizcupv4.util.Scoreboard;
@@ -94,7 +91,15 @@ public final class QuizCupV4 extends JavaPlugin {
         getCommand("invis").setExecutor(new InvisCommand());
         getCommand("stresstest").setExecutor(new StressTestCommand());
         getCommand("points").setExecutor(new PointsCommand());
-        getCommand("WinnerCommand").setExecutor(new WinnerCommand());
+        getCommand("winner").setExecutor(new WinnerCommand());
+        getCommand("winnerbackup").setExecutor(new WinnerBackupCommand());
+        getCommand("invsee").setExecutor(new InvseeCommand());
+        getCommand("skull").setExecutor(new SkullCommand());
+        getCommand("startfrage").setExecutor(new StartFrageCommand());
+        getCommand("buzzer").setExecutor(new BuzzerCommand());
+        getCommand("spawn").setExecutor(new SpawnCommand());
+        getCommand("finaltp").setExecutor(new FinalTPCommand());
+        getCommand("zumstart").setExecutor(new ZumStartCommand());
     }
 
     public static void createFiles() {

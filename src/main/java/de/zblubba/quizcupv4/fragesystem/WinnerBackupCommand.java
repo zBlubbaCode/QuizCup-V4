@@ -7,13 +7,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class WinnerCommand implements CommandExecutor {
+public class WinnerBackupCommand implements CommandExecutor {
+
+    static Plugin plugin = QuizCupV4.getPlugin(QuizCupV4.class);
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("quizcup.winner")) {
@@ -39,45 +44,44 @@ public class WinnerCommand implements CommandExecutor {
         try {
             Connection connection = QuizCupV4.connection;
             String query = "update points set points = points + 1 where uuid = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
+
 
             String prefix = MessageCollection.getPrefix();
 
+            ArrayList<Player> playersInRegion = new ArrayList<>();
+
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (player.getLocation().getX() >= xmin && player.getLocation().getX() <= xmax && player.getLocation().getZ() >= zmin && player.getLocation().getZ() <= zmax) {
-                    player.sendMessage(prefix + "Du hast diese Frage §arichtig §7beantwortet!");
-                    statement.setString(1, player.getUniqueId().toString());
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
-                    statement.addBatch();
+                    playersInRegion.add(player);
                 }
                 player.sendMessage(prefix + "Die Antwort " + color + " §7war richtig!");
             }
 
-            statement.executeBatch();
-            statement.close();
+            AtomicInteger i = new AtomicInteger();
 
-        } catch (SQLException e) {
+            int taskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+                try {
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    Player p = Bukkit.getPlayer(playersInRegion.get(i.get()).getUniqueId());
+                    assert p != null;
+                    p.sendMessage(prefix + "Du hast diese Frage §arichtig §7beantwortet!");
+                    statement.setString(1, p.getUniqueId().toString());
+                    statement.addBatch();
+                    statement.executeBatch();
+                    statement.close();
+                    i.getAndIncrement();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }, 50, 10);
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                Bukkit.getScheduler().cancelTask(taskid);
+            }, 50 + playersInRegion.toArray().length);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 }

@@ -19,3 +19,26 @@ commands:
   points:
     permission: quizcup.helper
     description: ändert die punktzahl eines spielers
+  winner:
+    permission: quizcup.helper
+    description: fügt die punkte zu den gewinnern hinzu
+  winnerbackup:
+    permission: quizcup.helper
+    description: backup für den winner command
+  invsee:
+    permission: quizcup.invsee
+    description: invsee command
+  startfrage:
+    permission: quizcup.fragen.start
+    description: startet eine frage
+  spawn:
+    description: teleportiert einen zum spawn
+  finalplayer:
+    permission: quizcup.finale
+    description: fügt alle finalspieler zu einer liste hinzu
+  finaltp:
+    permission: quizcup.finale
+    description: teleportiert alle finalspieler zu einem ort
+  zumstart:
+    permission: quizcup.helper
+    description: warnt alle spieler zum spawn zu kommen
